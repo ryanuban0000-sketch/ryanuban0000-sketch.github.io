@@ -3,605 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ryan Pangilinan — Maintenance Coordinator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Remote Maintenance Coordinator — Ryan Pangilinan</title>
 <style>
   :root{
-    --bg: #F5F4F0;
-    --bg-alt: #ECE9E1;
-    --ink: #21241F;
-    --ink-soft: #565A52;
-    --navy: #1B2A3D;
-    --navy-soft: #2E4056;
-    --steel: #55707E;
-    --rust: #B5651D;
-    --rust-light: #D98B4F;
-    --line: #D6D2C6;
-    --paper-shadow: rgba(27,42,61,0.14);
-    --focus: #B5651D;
+    --ink:#1B2430;
+    --ink-2:#242E3D;
+    --paper:#FAF7F0;
+    --paper-dim:#EFE9DA;
+    --amber:#F2A93B;
+    --amber-dark:#C77E1A;
+    --teal:#4C6B73;
+    --teal-light:#7C9BA1;
+    --red:#B4483C;
+    --line-dark: rgba(27,36,48,0.15);
   }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:16px;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Work Sans', Arial, sans-serif; -webkit-font-smoothing:antialiased;}
+  .mono{ font-family:'IBM Plex Mono','Courier New',monospace; letter-spacing:0.02em; }
+  h1,h2,h3{ font-family:'Archivo','Arial Narrow',sans-serif; font-weight:800; margin:0; letter-spacing:-0.01em; }
+  p{ line-height:1.6; }
+  a{ color:inherit; }
+  img{ display:block; max-width:100%; }
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50; background:var(--ink); color:var(--paper);
+    padding:14px 6vw; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:2px dashed rgba(242,169,59,0.4);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Archivo',sans-serif; font-weight:800; font-size:15px; letter-spacing:0.04em;}
+  .brand .badge{ width:32px;height:32px;border:2px solid var(--amber); border-radius:6px; display:flex;align-items:center;justify-content:center; font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);}
+  .nav-cta{ font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--amber); color:var(--ink); padding:9px 16px; border-radius:6px; text-decoration:none; font-weight:700;}
+
+  section{ padding:70px 6vw; max-width:1180px; margin:0 auto; }
+  .stage-tag{
+    display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px;
+    border-radius:20px; margin-bottom:20px; font-weight:700;
   }
 
-  ::selection{ background: var(--rust-light); color:#fff; }
+  /* ---------- 1. HERO ---------- */
+  .hero{ background:var(--ink); color:var(--paper); position:relative; overflow:hidden; padding:80px 6vw 100px;}
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background-image:url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600');
+    background-size:cover; background-position:center; opacity:0.10; mix-blend-mode:luminosity;
+  }
+  .hero-inner{ position:relative; max-width:760px; margin:0 auto; text-align:center;}
+  .hero .stage-tag{ background:rgba(242,169,59,0.15); color:var(--amber); border:1px solid rgba(242,169,59,0.4);}
+  .hero h1{ font-size:clamp(32px,4.2vw,52px); line-height:1.08; margin-bottom:20px;}
+  .hero .lede{ font-size:17px; color:#C6CBD3; max-width:560px; margin:0 auto 32px;}
+  .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; padding:14px 26px;
+    border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    letter-spacing:0.02em; border:2px solid transparent; transition:transform .15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--amber); color:var(--ink); }
+  .btn-ghost{ border-color:var(--paper); color:var(--paper); }
+  .hero-meta{
+    margin-top:44px; display:flex; justify-content:center; gap:40px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:#9AA2AD;
+  }
+  .hero-meta strong{ display:block; color:var(--paper); font-size:20px; font-family:'Archivo',sans-serif; margin-bottom:2px;}
 
-  a{ color: var(--rust); }
-  :focus-visible{
-    outline: 3px solid var(--focus);
-    outline-offset: 3px;
+  /* ---------- 2. PROBLEM ---------- */
+  .problem{ background:var(--paper); }
+  .problem .stage-tag{ background:rgba(180,72,60,0.1); color:var(--red); border:1px solid rgba(180,72,60,0.3);}
+  .problem-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:50px; align-items:center; margin-top:10px;}
+  @media (max-width:850px){ .problem-grid{ grid-template-columns:1fr; } }
+  .problem h2{ font-size:clamp(24px,3vw,34px); margin-bottom:18px; max-width:480px;}
+  .ticket-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--line-dark);}
+  .ticket-list li{
+    display:flex; gap:14px; padding:16px 4px; border-bottom:1px solid var(--line-dark); font-size:15px;
   }
+  .ticket-list .mark{ color:var(--red); font-weight:800; flex:none;}
+  .problem-figure{ border-radius:10px; overflow:hidden; box-shadow:0 18px 40px rgba(27,36,48,0.18);}
+  .problem-figure img{ width:100%; height:360px; object-fit:cover;}
+  .problem-figure figcaption{ margin:0; padding:10px 14px; background:var(--ink); color:var(--paper-dim); font-size:11px;}
 
-  .wrap{
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 0 28px;
+  /* ---------- 3. SOLUTION ---------- */
+  .solution{ background:var(--ink); color:var(--paper); }
+  .solution .stage-tag{ background:rgba(76,107,115,0.25); color:var(--teal-light); border:1px solid rgba(124,155,161,0.4);}
+  .solution h2{ font-size:clamp(24px,3vw,34px); max-width:600px; margin-bottom:14px;}
+  .solution > .lede{ color:#C6CBD3; max-width:600px; margin-bottom:44px; font-size:15px;}
+  .solution-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  @media (max-width:900px){ .solution-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .solution-grid{ grid-template-columns:1fr;} }
+  .sol-card{
+    background:var(--ink-2); border:1px solid rgba(250,247,240,0.1); border-radius:10px; padding:22px 18px;
   }
-
-  header.site-nav{
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(245,244,240,0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-inner{
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 16px 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .nav-mark{
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    color: var(--navy);
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .nav-mark .dot{
-    width:8px; height:8px; border-radius:50%;
-    background: var(--rust);
-    display:inline-block;
-  }
-  nav.nav-links{ display:flex; gap: 24px; }
-  nav.nav-links a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    text-decoration:none;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-  }
-  nav.nav-links a:hover{ color: var(--rust); }
-
-  @media (max-width:600px){
-    nav.nav-links{ gap: 14px; }
-    nav.nav-links a{ font-size: 11px; }
+  .sol-num{ font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:12px; display:block; margin-bottom:14px;}
+  .sol-card h3{ font-size:15px; margin-bottom:8px; }
+  .sol-card p{ font-size:13px; color:#AEB4BE; margin:0; }
+  .flow-note{
+    margin-top:36px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--teal-light);
+    display:flex; align-items:center; gap:10px;
   }
 
-  .hero{
-    padding: 56px 0 48px;
+  /* ---------- 4. ACTION ---------- */
+  .action{ background:var(--paper-dim); }
+  .action .stage-tag{ background:rgba(199,126,26,0.12); color:var(--amber-dark); border:1px solid rgba(199,126,26,0.35);}
+  .stub-card{
+    max-width:860px; margin:0 auto; background:var(--paper); border-radius:10px;
+    box-shadow:0 20px 44px rgba(27,36,48,0.15); display:grid; grid-template-columns:1fr 260px; overflow:hidden;
   }
-  .ticket{
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    box-shadow: 0 18px 40px -20px var(--paper-shadow);
-    position: relative;
-    overflow: hidden;
+  @media (max-width:700px){ .stub-card{ grid-template-columns:1fr; } }
+  .stub-card-main{ padding:40px 36px; }
+  .stub-card-main h2{ font-size:clamp(22px,2.6vw,28px); margin-bottom:14px;}
+  .stub-card-main p{ font-size:14px; color:#4a5563; max-width:440px; margin-bottom:22px;}
+  .form{ display:flex; flex-direction:column; gap:12px; max-width:400px; }
+  .form input{
+    font-family:'Work Sans',sans-serif; padding:12px 14px; border:1px solid var(--line-dark);
+    border-radius:6px; font-size:14px; background:var(--paper);
   }
-  .ticket-top{
-    display:flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 28px 30px 24px;
-    background: var(--navy);
-    color: #F2EFE7;
+  .form button{
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; padding:13px 20px;
+    border:none; border-radius:6px; background:var(--amber); color:var(--ink); cursor:pointer;
+    letter-spacing:0.02em; transition:transform .15s ease;
   }
-  .ticket-top .label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #B9C4CE;
-    margin: 0 0 6px;
+  .form button:hover{ transform:translateY(-2px); }
+  .form-note{ font-size:11px; color:#8a93a0; margin-top:2px;}
+  .stub-card-side{
+    background:var(--ink); color:var(--paper); padding:32px 24px; border-left:2px dashed rgba(27,36,48,0.25);
+    display:flex; flex-direction:column; justify-content:center; gap:16px;
   }
-  .ticket-top .wo-id{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--rust-light);
-  }
-  .status-chip{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--rust);
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 3px;
-    white-space: nowrap;
-    align-self: flex-start;
-  }
+  .stub-label{ font-size:11px; text-transform:uppercase; letter-spacing:0.12em; opacity:0.6; margin-bottom:4px;}
+  .stub-value{ font-family:'IBM Plex Mono',monospace; font-size:14px; }
 
-  .ticket-body{
-    padding: 34px 30px 32px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 28px;
-    align-items: start;
-  }
-  .ticket-main h1{
-    font-family:'Archivo', sans-serif;
-    font-weight: 900;
-    font-size: clamp(30px, 4.4vw, 44px);
-    line-height: 1.04;
-    margin: 0 0 10px;
-    color: var(--navy);
-    letter-spacing: -0.01em;
-  }
-  .ticket-main .role{
-    font-family:'Archivo', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    color: var(--rust);
-    margin: 0 0 16px;
-  }
-  .ticket-main p.summary{
-    max-width: 54ch;
-    color: var(--ink-soft);
-    font-size: 15.5px;
-    margin: 0 0 20px;
-  }
-  .ticket-fields{
-    display:grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 12px 28px;
-    margin-top: 6px;
-    max-width: 480px;
-  }
-  .field .k{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--steel);
-    display:block;
-    margin-bottom: 3px;
-  }
-  .field .v{
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink);
-  }
-  .field .v a{ text-decoration: none; color: var(--ink); font-weight:500; }
-  .field .v a:hover{ color: var(--rust); }
-
-  .badge-art{
-    width: 148px;
-    height: 148px;
-    flex-shrink: 0;
-    align-self: center;
-  }
-
-  .ticket-bottom{
-    border-top: 1px dashed var(--line);
-    padding: 16px 30px;
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    background: var(--bg-alt);
-  }
-  .ticket-bottom .stamp{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-  }
-  .ticket-bottom .cta{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-decoration:none;
-    color: #fff;
-    background: var(--navy);
-    padding: 10px 18px;
-    border-radius: 4px;
-    transition: background 0.15s ease;
-  }
-  .ticket-bottom .cta:hover{ background: var(--rust); }
-
-  @media (max-width: 640px){
-    .ticket-body{ grid-template-columns: 1fr; }
-    .badge-art{ display:none; }
-    .ticket-fields{ grid-template-columns: 1fr 1fr; max-width: none; }
-    .ticket-top{ flex-direction:column; }
-  }
-
-  .section{ padding: 54px 0; border-top: 1px solid var(--line); }
-  .section-head{
-    display:flex;
-    align-items: baseline;
-    gap: 14px;
-    margin-bottom: 30px;
-  }
-  .section-head .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--rust);
-    white-space:nowrap;
-  }
-  .section-head h2{
-    font-family:'Archivo', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    margin: 0;
-    color: var(--navy);
-  }
-  .section-head::after{
-    content:"";
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-
-  .systems-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .sys-card{
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 18px 20px;
-    background: #fff;
-  }
-  .sys-card .n{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--steel);
-    letter-spacing: 0.06em;
-    display:block;
-    margin-bottom: 6px;
-  }
-  .sys-card h3{
-    font-family:'Archivo', sans-serif;
-    font-size: 16.5px;
-    margin: 0 0 6px;
-    color: var(--ink);
-  }
-  .sys-card p{
-    margin: 0;
-    font-size: 13.6px;
-    color: var(--ink-soft);
-  }
-
-  .log{
-    border-left: 2px solid var(--line);
-    margin-left: 6px;
-    padding-left: 26px;
-  }
-  .log-entry{
-    position: relative;
-    padding-bottom: 30px;
-  }
-  .log-entry:last-child{ padding-bottom: 0; }
-  .log-entry::before{
-    content:"";
-    position:absolute;
-    left: -32px;
-    top: 4px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--rust);
-  }
-  .log-entry .meta{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.06em;
-    color: var(--steel);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .log-entry h3{
-    font-family:'Archivo', sans-serif;
-    font-size: 17px;
-    margin: 0 0 4px;
-    color: var(--navy);
-  }
-  .log-entry .org{
-    font-size: 13.5px;
-    color: var(--rust);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .log-entry p{
-    margin: 0;
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    max-width: 62ch;
-  }
-
-  .edu-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-    gap: 16px;
-  }
-  .edu-card{
-    padding: 18px 20px;
-    border-left: 3px solid var(--rust);
-    background: var(--bg-alt);
-    border-radius: 0 6px 6px 0;
-  }
-  .edu-card .meta{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--steel);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 4px;
-  }
-  .edu-card h3{
-    font-family:'Archivo', sans-serif;
-    font-size: 15.5px;
-    margin: 0;
-    color: var(--ink);
-  }
-
-  footer{
-    background: var(--navy);
-    color: #E9E5D8;
-    padding: 54px 0 40px;
-    margin-top: 20px;
-  }
-  footer h2{
-    font-family:'Archivo', sans-serif;
-    font-weight: 800;
-    font-size: 26px;
-    margin: 0 0 10px;
-    color: #fff;
-  }
-  footer p{
-    color: #B9C4CE;
-    max-width: 50ch;
-    margin: 0 0 26px;
-    font-size: 15px;
-  }
-  .contact-row{
-    display:flex;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .contact-pill{
-    display:flex;
-    align-items:center;
-    gap: 10px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.14);
-    padding: 12px 18px;
-    border-radius: 6px;
-    text-decoration:none;
-    color: #F2EFE7;
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13.5px;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-  .contact-pill:hover{
-    background: var(--rust);
-    border-color: var(--rust);
-  }
-  .foot-bottom{
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    color: #8494A1;
-    display:flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ transition: none !important; }
-  }
+  footer{ text-align:center; padding:26px; font-size:12px; color:#8a93a0; font-family:'IBM Plex Mono',monospace; }
 </style>
 </head>
 <body>
 
-<header class="site-nav">
-  <div class="nav-inner">
-    <a href="#top" class="nav-mark"><span class="dot"></span>R. PANGILINAN</a>
-    <nav class="nav-links">
-      <a href="#systems">Systems</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
+<header class="nav">
+  <div class="brand"><span class="badge">RP</span> RYAN PANGILINAN</div>
+  <a href="#action" class="nav-cta">Book Free Consult</a>
 </header>
 
-<main id="top">
-  <section class="hero wrap">
-    <div class="ticket">
-      <div class="ticket-top">
-        <div>
-          <p class="label">Service Request &mdash; Candidate Profile</p>
-          <p class="wo-id">WORK ORDER NO. MC&#8209;2026&#8209;014</p>
-        </div>
-        <span class="status-chip">Available Now</span>
-      </div>
-
-      <div class="ticket-body">
-        <div class="ticket-main">
-          <h1>Ryan Pangilinan</h1>
-          <p class="role">Maintenance Coordinator &amp; Assistant Property Manager</p>
-          <p class="summary">Hands-on maintenance and mechanical background paired with real coordination experience &mdash; managing vendors, dispatch, and day-to-day property upkeep. Comfortable running the software side too: AppFolio, GoHighLevel, and TMS dispatch platforms.</p>
-
-          <div class="ticket-fields">
-            <div class="field">
-              <span class="k">Based</span>
-              <span class="v">Caloocan, Philippines</span>
-            </div>
-            <div class="field">
-              <span class="k">Availability</span>
-              <span class="v">Remote &mdash; US / AU clients</span>
-            </div>
-            <div class="field">
-              <span class="k">Email</span>
-              <span class="v"><a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a></span>
-            </div>
-            <div class="field">
-              <span class="k">Phone</span>
-              <span class="v"><a href="tel:+639462422255">+63 946 242 2255</a></span>
-            </div>
-          </div>
-        </div>
-
-        <svg class="badge-art" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="House and wrench icon">
-          <circle cx="80" cy="80" r="78" fill="#F5F4F0" stroke="#D6D2C6" stroke-width="2"/>
-          <path d="M80 34 L128 70 V126 H32 V70 Z" fill="#1B2A3D"/>
-          <path d="M80 34 L128 70 H32 Z" fill="#2E4056"/>
-          <rect x="70" y="94" width="20" height="32" fill="#F5F4F0"/>
-          <path d="M58 58c-9 0-16 7-16 16 0 3 .6 5.8 1.7 8.3l-13.6 13.6a5 5 0 0 0 7 7l13.6-13.6c2.5 1.1 5.3 1.7 8.3 1.7 9 0 16-7 16-16s-7-16-16-16Zm0 8c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8Z" fill="#B5651D"/>
-        </svg>
-      </div>
-
-      <div class="ticket-bottom">
-        <span class="stamp">Priority: Fill Immediately</span>
-        <a class="cta" href="mailto:ryanuban0000@gmail.com">Contact Ryan &rarr;</a>
-      </div>
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Stop losing hours to maintenance requests that never get dispatched.</h1>
+    <p class="lede">A remote Maintenance Coordinator who runs your work orders, vendors, and tenant communication — covering US and Australian business hours, for a fraction of an in-house hire.</p>
+    <div class="cta-row">
+      <a href="#action" class="btn btn-primary">Book a Free 15-Min Call →</a>
+      <a href="#problem" class="btn btn-ghost">See the Problem</a>
     </div>
-  </section>
-
-  <section class="section wrap" id="systems">
-    <div class="section-head">
-      <span class="tag">WO&#8209;01</span>
-      <h2>Systems &amp; Software</h2>
-    </div>
-    <div class="systems-grid">
-      <div class="sys-card">
-        <span class="n">01</span>
-        <h3>AppFolio</h3>
-        <p>Property management software &mdash; used day-to-day for managing a residential apartment property.</p>
-      </div>
-      <div class="sys-card">
-        <span class="n">02</span>
-        <h3>GoHighLevel (GHL)</h3>
-        <p>CRM &amp; workflow platform for scheduling, follow-ups, and coordination.</p>
-      </div>
-      <div class="sys-card">
-        <span class="n">03</span>
-        <h3>Ascend TMS</h3>
-        <p>Transportation management system, plus experience with other free/basic TMS platforms for dispatch.</p>
-      </div>
-      <div class="sys-card">
-        <span class="n">04</span>
-        <h3>Hands-On Maintenance</h3>
-        <p>Diesel &amp; heavy equipment mechanics background, plus a self-built and installed home solar power system.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section wrap" id="experience">
-    <div class="section-head">
-      <span class="tag">WO&#8209;02</span>
-      <h2>Experience Log</h2>
-    </div>
-    <div class="log">
-      <div class="log-entry">
-        <p class="meta">2023 &ndash; Present</p>
-        <h3>Owner / Maintenance</h3>
-        <p class="org">Residential Apartment Property</p>
-        <p>Owns and manages a residential apartment property &mdash; handling upkeep, repairs, and day-to-day maintenance coordination.</p>
-      </div>
-      <div class="log-entry">
-        <p class="meta">2019 &ndash; 2026</p>
-        <h3>Small Business Owner</h3>
-        <p class="org">Mini Grocery</p>
-        <p>Ran a mini grocery business, overseeing daily operations end to end.</p>
-      </div>
-      <div class="log-entry">
-        <p class="meta">2016 &ndash; 2018</p>
-        <h3>Logistics Coordinator / Heavy Equipment Mechanic</h3>
-        <p class="org">YANMAR / KEP</p>
-        <p>Worked across diesel mechanics, heavy equipment repair, and logistics coordination.</p>
-      </div>
-      <div class="log-entry">
-        <p class="meta">2012 &ndash; 2015</p>
-        <h3>Technician, Warranty Section</h3>
-        <p class="org">CD-R King</p>
-        <p>Handled nationwide repairs for CD-R King products and gadgets, including solar energy products.</p>
-      </div>
-      <div class="log-entry">
-        <p class="meta">2006 &ndash; 2012</p>
-        <h3>Freelance IT Technician</h3>
-        <p class="org">Self-Employed</p>
-        <p>Provided computer repair, troubleshooting, and tech support for individuals and small businesses.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section wrap" id="education">
-    <div class="section-head">
-      <span class="tag">WO&#8209;03</span>
-      <h2>Education &amp; Training</h2>
-    </div>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <p class="meta">2002 &ndash; 2004</p>
-        <h3>Diploma in Computer and Electronics</h3>
-      </div>
-      <div class="edu-card">
-        <p class="meta">2015</p>
-        <h3>Diesel Mechanic Tech-Voc</h3>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer id="contact">
-  <div class="wrap">
-    <h2>Let's talk about the role.</h2>
-    <p>Open to Maintenance Coordinator, Assistant Property Manager, and Home Care Scheduler positions &mdash; remote, working with US or Australian clients.</p>
-    <div class="contact-row">
-      <a class="contact-pill" href="mailto:ryanuban0000@gmail.com">&#9993; ryanuban0000@gmail.com</a>
-      <a class="contact-pill" href="tel:+639462422255">&#9742; +63 946 242 2255</a>
-      <span class="contact-pill" style="cursor:default;">&#128205; Caloocan, Philippines</span>
-    </div>
-    <div class="foot-bottom">
-      <span>Ryan Pangilinan &mdash; Maintenance Coordinator</span>
-      <span>Remote &mdash; Available Now</span>
+    <div class="hero-meta">
+      <div><strong>US / AU</strong>Hours Covered</div>
+      <div><strong>AppFolio</strong>+ GHL Fluent</div>
+      <div><strong>3+ yrs</strong>Coordination &amp; Repair in Property Mgmt</div>
     </div>
   </div>
-</footer>
+</section>
+
+<!-- 2. PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-grid">
+    <div>
+      <h2>Every unassigned work order is a tenant getting more frustrated — and a property manager stretched thinner.</h2>
+      <ul class="ticket-list">
+        <li><span class="mark">✕</span> Maintenance requests pile up because no one owns follow-through</li>
+        <li><span class="mark">✕</span> Vendors go unconfirmed until a tenant complains again</li>
+        <li><span class="mark">✕</span> After-hours requests sit untouched until the next business day</li>
+        <li><span class="mark">✕</span> Hiring a full-time in-house coordinator costs far more than the workload needs</li>
+      </ul>
+    </div>
+    <figure class="problem-figure">
+      <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200" alt="Overdue property maintenance work">
+      <figcaption class="mono">A BACKLOG COMPOUNDS — IT DOESN'T WAIT</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3. SOLUTION -->
+<section class="solution">
+  <h2>One coordinator, running the full maintenance loop — on your systems, on your hours.</h2>
+  <p class="lede">I plug into your existing tools (AppFolio, GoHighLevel, or whatever you run) and take ownership of the loop from request to close-out.</p>
+  <div class="solution-grid">
+    <div class="sol-card">
+      <span class="sol-num mono">01</span>
+      <h3>Intake &amp; Triage</h3>
+      <p>Every request logged and prioritized the moment it comes in — nothing sits unseen.</p>
+    </div>
+    <div class="sol-card">
+      <span class="sol-num mono">02</span>
+      <h3>Vendor Dispatch</h3>
+      <p>Contractors scheduled and confirmed, with follow-up so jobs don't stall mid-way.</p>
+    </div>
+    <div class="sol-card">
+      <span class="sol-num mono">03</span>
+      <h3>Tenant Updates</h3>
+      <p>Clear, timely communication so tenants aren't left guessing on status.</p>
+    </div>
+    <div class="sol-card">
+      <span class="sol-num mono">04</span>
+      <h3>Close-Out &amp; Reporting</h3>
+      <p>Tickets tracked to completion, with a clean record in your system of choice.</p>
+    </div>
+  </div>
+  <div class="flow-note">→ Intake → Dispatch → Communicate → Close — every ticket, every time.</div>
+</section>
+
+<!-- 4. ACTION -->
+<section class="action" id="action">
+  <div class="stub-card">
+    <div class="stub-card-main">
+      <h2>Book a free 15-minute call.</h2>
+      <p>We'll walk through your current maintenance workflow and where a remote coordinator would save you the most time.</p>
+      <form class="form" onsubmit="return false;">
+        <input type="text" placeholder="Full name" required>
+        <input type="email" placeholder="Email address" required>
+        <input type="tel" placeholder="Phone (optional)">
+        <button type="submit">Reserve My Free Call →</button>
+      </form>
+      <div class="form-note">No obligation. Replies within 24 hours.</div>
+    </div>
+    <div class="stub-card-side">
+      <div>
+        <div class="stub-label">Status</div>
+        <div class="stub-value mono" style="color:#F2A93B;">OPEN FOR WORK</div>
+      </div>
+      <div>
+        <div class="stub-label">Direct</div>
+        <div class="stub-value">+63 946 242 2255</div>
+      </div>
+      <div>
+        <div class="stub-label">Email</div>
+        <div class="stub-value">ryanuban0000@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>REMOTE MAINTENANCE COORDINATION · US / AU HOURS · 2026</footer>
 
 </body>
 </html>
