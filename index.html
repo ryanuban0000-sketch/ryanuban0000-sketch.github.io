@@ -1,11 +1,506 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Ryan's Website</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Pangilinan — Logistics Coordinator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #12213D;
+    --navy-deep: #0A1526;
+    --amber: #E8A33D;
+    --cream: #F7F5F0;
+    --ink: #1C1F26;
+    --muted: #6B7280;
+    --line: #D8D3C7;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Big Shoulders Display', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
 
+  /* ===== HEADER STRIP ===== */
+  .topbar{
+    background:var(--navy-deep);
+    color:var(--cream);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    padding:9px 24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+    text-transform:uppercase;
+  }
+  .topbar span{ opacity:0.85; }
+  .topbar b{ color:var(--amber); }
+
+  /* ===== HERO / WAYBILL ===== */
+  .hero{
+    background:var(--navy);
+    color:var(--cream);
+    padding:64px 24px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1000px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    color:var(--amber);
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;
+    height:2px;
+    background:var(--amber);
+    display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 10vw, 6.5rem);
+    font-weight:800;
+    line-height:0.92;
+    margin:18px 0 6px;
+  }
+  .hero .role{
+    font-family:'JetBrains Mono', monospace;
+    font-size:clamp(0.85rem, 2vw, 1.05rem);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:#C9D2E3;
+    margin-bottom:34px;
+  }
+  .hero .role em{ color:var(--amber); font-style:normal; }
+
+  /* manifest field strip */
+  .manifest{
+    background:var(--navy-deep);
+    border:1px solid #24345A;
+    border-radius:2px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    margin-bottom:-1px;
+  }
+  .manifest .field{
+    padding:16px 20px;
+    border-right:1px solid #24345A;
+  }
+  .manifest .field:last-child{ border-right:none; }
+  .manifest .field label{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.12em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .manifest .field a, .manifest .field span{
+    font-size:0.88rem;
+    color:var(--cream);
+    word-break:break-word;
+  }
+
+  @media (max-width: 720px){
+    .manifest{ grid-template-columns:repeat(2, 1fr); }
+    .manifest .field:nth-child(2){ border-right:none; }
+  }
+
+  /* ===== SECTION SHELL ===== */
+  section{
+    max-width:1000px;
+    margin:0 auto;
+    padding:72px 24px;
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:32px;
+  }
+  .section-head .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--muted);
+    letter-spacing:0.1em;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    color:var(--navy);
+  }
+  .rule{
+    height:1px;
+    background:var(--line);
+    flex:1;
+    margin-top:6px;
+  }
+
+  /* ===== SUMMARY ===== */
+  .summary-text{
+    font-size:1.08rem;
+    color:#3A3F4B;
+    max-width:64ch;
+  }
+
+  /* ===== SERVICES ===== */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--cream);
+    padding:26px 24px;
+  }
+  .service-card .num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--amber);
+    font-size:0.78rem;
+    display:block;
+    margin-bottom:8px;
+  }
+  .service-card h3{
+    font-size:1.15rem;
+    color:var(--navy);
+    margin-bottom:6px;
+    font-weight:700;
+  }
+  .service-card p{
+    color:var(--muted);
+    font-size:0.92rem;
+  }
+  @media (max-width:640px){ .services-grid{ grid-template-columns:1fr; } }
+
+  /* ===== ROUTE / EXPERIENCE ===== */
+  .route-wrap{ position:relative; padding-top:10px; }
+  .route-line{
+    position:absolute;
+    left:11px;
+    top:8px;
+    bottom:8px;
+    width:2px;
+    background:repeating-linear-gradient(to bottom, var(--amber) 0 6px, transparent 6px 12px);
+  }
+  .stop{
+    position:relative;
+    padding-left:44px;
+    margin-bottom:40px;
+  }
+  .stop:last-child{ margin-bottom:0; }
+  .stop::before{
+    content:"";
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:var(--navy);
+    border:3px solid var(--amber);
+  }
+  .stop .leg{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:var(--amber);
+    text-transform:uppercase;
+    background:var(--navy);
+    display:inline-block;
+    padding:3px 9px;
+    border-radius:2px;
+    margin-bottom:8px;
+  }
+  .stop h3{
+    font-size:1.4rem;
+    color:var(--navy);
+    margin-bottom:4px;
+  }
+  .stop .role-line{
+    color:var(--muted);
+    font-size:0.92rem;
+    font-style:normal;
+  }
+
+  /* ===== STRENGTHS + EDUCATION (side by side) ===== */
+  .two-col{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+  }
+  @media (max-width:760px){ .two-col{ grid-template-columns:1fr; } }
+  .strength-list{ list-style:none; }
+  .strength-list li{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .strength-list li:first-child{ padding-top:0; }
+  .strength-list .mark{
+    color:var(--amber);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+  }
+  .edu-item{ margin-bottom:22px; }
+  .edu-item:last-child{ margin-bottom:0; }
+  .edu-item .yr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--amber);
+    display:block;
+    margin-bottom:4px;
+  }
+  .edu-item h4{
+    font-family:'Big Shoulders Display', sans-serif;
+    text-transform:uppercase;
+    font-size:1.15rem;
+    color:var(--navy);
+  }
+  .edu-item span.school{
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  /* ===== CONTACT / FOOTER ===== */
+  .contact-block{
+    background:var(--navy);
+    color:var(--cream);
+    padding:72px 24px;
+    text-align:center;
+  }
+  .contact-block .eyebrow{ justify-content:center; }
+  .contact-block .eyebrow::before{ display:none; }
+  .contact-block h2{
+    font-size:clamp(2.2rem, 6vw, 3.6rem);
+    margin:14px 0 24px;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .contact-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    border:1px solid #33436A;
+    padding:12px 22px;
+    border-radius:2px;
+    transition:0.2s;
+  }
+  .contact-links a:hover{
+    background:var(--amber);
+    color:var(--navy-deep);
+    border-color:var(--amber);
+  }
+  footer{
+    text-align:center;
+    padding:18px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    color:var(--muted);
+    background:var(--navy-deep);
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+</style>
+</head>
 <body>
-    <h1>Hello, I'm Ryan!</h1>
-    <p>My first GitHub Pages website is working!</p>
+
+<div class="topbar">
+  <span><b>MANIFEST No.</b> RP-2026-LTL</span>
+  <span>ORIGIN: Caloocan, Philippines</span>
+  <span>STATUS: <b>AVAILABLE — IMMEDIATE START</b></span>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Logistics Coordinator</p>
+    <h1>Ryan<br>Pangilinan</h1>
+    <p class="role">Dispatch &amp; Coordination <em>·</em> LTL &amp; Truckload <em>·</em> Remote-Ready</p>
+
+    <div class="manifest">
+      <div class="field">
+        <label>Location</label>
+        <span>Caloocan, PH</span>
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <a href="tel:09462422255">0946 242 2255</a>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
+      </div>
+      <div class="field">
+        <label>Background</label>
+        <span>Diesel Mechanic &amp; IT</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="section-head">
+    <span class="tag">01 / SUMMARY</span>
+    <div class="rule"></div>
+  </div>
+  <h2 style="margin-bottom:18px;">On the record</h2>
+  <p class="summary-text">Dedicated and detail-oriented Logistics Coordinator with hands-on training in coordination and dispatching. Background as a truck mechanic, backed by a diploma in Information Technology — a combination that pairs technical know-how with strong administrative and computer skills. Fast learner, highly organized, and committed to delivering reliable results in a remote work environment. Available to start immediately.</p>
+</section>
+
+<section class="reveal">
+  <div class="section-head">
+    <span class="tag">02 / SERVICES</span>
+    <div class="rule"></div>
+  </div>
+  <h2 style="margin-bottom:28px;">What I handle as your VA</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="num">A</span>
+      <h3>Email Management</h3>
+      <p>Keeping inboxes organized, responsive, and nothing falling through the cracks.</p>
+    </div>
+    <div class="service-card">
+      <span class="num">B</span>
+      <h3>Quoting &amp; Booking</h3>
+      <p>Turning requests into confirmed shipments, fast and accurately.</p>
+    </div>
+    <div class="service-card">
+      <span class="num">C</span>
+      <h3>Shipment Tracking</h3>
+      <p>Monitoring freight from pickup to delivery, flagging issues early.</p>
+    </div>
+    <div class="service-card">
+      <span class="num">D</span>
+      <h3>POD Verification</h3>
+      <p>Checking proof of delivery once a shipment lands, every time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-head">
+    <span class="tag">03 / ROUTE</span>
+    <div class="rule"></div>
+  </div>
+  <h2 style="margin-bottom:34px;">The road so far</h2>
+  <div class="route-wrap">
+    <div class="route-line"></div>
+
+    <div class="stop">
+      <span class="leg">2019 — 2026 · 7 YRS</span>
+      <h3>Small Business Owner</h3>
+      <p class="role-line">Mini Grocery / Residential Apartment — full operational and administrative ownership.</p>
+    </div>
+
+    <div class="stop">
+      <span class="leg">2016 — 2018 · 2 YRS</span>
+      <h3>YANMAR (KEP)</h3>
+      <p class="role-line">Diesel Mechanic / Heavy Equipment Mechanic / Logistics Coordinator</p>
+    </div>
+
+    <div class="stop">
+      <span class="leg">2006 — 2015 · 9 YRS</span>
+      <h3>Freelance IT</h3>
+      <p class="role-line">Independent technical support and computer services.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="two-col">
+    <div>
+      <div class="section-head">
+        <span class="tag">04 / STRENGTHS</span>
+        <div class="rule"></div>
+      </div>
+      <h2 style="margin-bottom:20px;">Built for the floor</h2>
+      <ul class="strength-list">
+        <li><span class="mark">→</span> High degree of monitoring and follow-through</li>
+        <li><span class="mark">→</span> Strong critical thinking and problem-solving</li>
+        <li><span class="mark">→</span> Deep background in LTL and Truckload freight</li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-head">
+        <span class="tag">05 / TRAINING</span>
+        <div class="rule"></div>
+      </div>
+      <h2 style="margin-bottom:20px;">Education</h2>
+      <div class="edu-item">
+        <span class="yr">2015</span>
+        <h4>Diesel Mechanic</h4>
+        <span class="school">Tech-Voc TESDA</span>
+      </div>
+      <div class="edu-item">
+        <span class="yr">2002 — 2004</span>
+        <h4>Computer &amp; Electronics</h4>
+        <span class="school">S.T.I College</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact-block reveal">
+  <p class="eyebrow">Let's move freight</p>
+  <h2>Ready when you are.</h2>
+  <div class="contact-links">
+    <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
+    <a href="tel:09462422255">0946 242 2255</a>
+  </div>
+</div>
+
+<footer>RYAN PANGILINAN — LOGISTICS COORDINATOR — CALOOCAN, PHILIPPINES</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r=>io.observe(r));
+</script>
+
 </body>
 </html>
