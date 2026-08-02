@@ -1,5 +1,686 @@
 <!DOCTYPE html>
+<html lang="en"><!DOCTYPE html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Pangilinan — Maintenance Coordinator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #16324F;
+    --navy-deep: #0E2438;
+    --grid-line: rgba(255,255,255,0.07);
+    --paper: #EDE6D3;
+    --paper-dark: #E2DABE;
+    --ink: #1F2A33;
+    --ink-soft: #4A5760;
+    --steel: #4C7A8C;
+    --steel-light: #7FA6B5;
+    --stamp-green: #2F6B4F;
+    --stamp-red: #9E3B2E;
+    --white: #FBF9F3;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--navy);
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--steel-light);
+    outline-offset: 3px;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--steel-light);
+  }
+
+  .paper-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  h1,h2,h3{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    margin:0;
+  }
+
+  .wrap{
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ===== HEADER / NAV ===== */
+  header{
+    padding:28px 0 10px;
+  }
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--white);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .nav-row .brand{
+    font-family:'Oswald', sans-serif;
+    font-size:15px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--white);
+  }
+  .nav-row nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    text-decoration:none;
+    color:var(--steel-light);
+    margin-left:20px;
+    letter-spacing:0.05em;
+  }
+  .nav-row nav a:hover{ color:var(--white); }
+
+  /* ===== HERO — WORK ORDER TICKET ===== */
+  .hero{
+    padding:40px 0 60px;
+  }
+  .ticket{
+    background:var(--paper);
+    border:1px solid rgba(0,0,0,0.15);
+    border-radius:4px;
+    padding:0;
+    position:relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    overflow:hidden;
+  }
+  .ticket-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:22px 28px 18px;
+    border-bottom:2px dashed rgba(31,42,51,0.25);
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .ticket-head .wo-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .ticket-body{
+    padding:30px 28px 34px;
+    display:grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap:28px;
+    align-items:center;
+  }
+  .ticket-name{
+    font-size:42px;
+    line-height:1.05;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .ticket-role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--steel);
+    margin-bottom:18px;
+    letter-spacing:0.02em;
+  }
+  .ticket-desc{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin-bottom:20px;
+  }
+  .field-row{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    margin-top:6px;
+  }
+  .field{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+  }
+  .field .k{ color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em; font-size:10px; display:block; margin-bottom:3px;}
+  .field .v{ color:var(--ink); font-weight:600; }
+
+  .stamp{
+    font-family:'Oswald', sans-serif;
+    font-size:18px;
+    letter-spacing:0.08em;
+    color:var(--stamp-green);
+    border:3px solid var(--stamp-green);
+    border-radius:6px;
+    padding:8px 14px;
+    display:inline-block;
+    transform:rotate(-8deg);
+    opacity:0.9;
+    text-align:center;
+    white-space:nowrap;
+  }
+
+  .ticket-art{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .ticket-art svg{ width:100%; max-width:220px; height:auto; }
+
+  .ticket-footer{
+    border-top:2px dashed rgba(31,42,51,0.25);
+    padding:16px 28px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .ticket-footer a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--steel);
+    border-bottom:1px solid var(--steel-light);
+  }
+  .ticket-footer a:hover{ color:var(--ink); }
+
+  /* ===== SECTION HEADERS ===== */
+  section{ padding:54px 0; }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+    color:var(--white);
+  }
+  .sec-head h2{
+    font-size:26px;
+    color:var(--white);
+  }
+  .sec-head .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--steel-light);
+  }
+  .sec-line{
+    flex:1;
+    height:1px;
+    background:var(--grid-line);
+  }
+
+  /* ===== SKILLS — CHECKLIST ===== */
+  .checklist{
+    background:var(--paper);
+    border-radius:4px;
+    padding:8px 0;
+    box-shadow:0 16px 40px rgba(0,0,0,0.3);
+  }
+  .check-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:16px 26px;
+    border-bottom:1px solid rgba(31,42,51,0.12);
+  }
+  .check-item:last-child{ border-bottom:none; }
+  .box{
+    width:18px; height:18px;
+    border:2px solid var(--stamp-green);
+    border-radius:3px;
+    flex-shrink:0;
+    margin-top:3px;
+    position:relative;
+  }
+  .box::after{
+    content:"";
+    position:absolute;
+    left:3px; top:-1px;
+    width:5px; height:9px;
+    border-right:2px solid var(--stamp-green);
+    border-bottom:2px solid var(--stamp-green);
+    transform:rotate(40deg);
+  }
+  .check-item .title{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--ink);
+    margin-bottom:3px;
+  }
+  .check-item .desc{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+
+  /* ===== EXPERIENCE — TICKET LOG ===== */
+  .log{
+    border-left:2px solid var(--grid-line);
+    margin-left:8px;
+  }
+  .log-entry{
+    position:relative;
+    padding:0 0 34px 30px;
+  }
+  .log-entry:last-child{ padding-bottom:0; }
+  .log-entry::before{
+    content:"";
+    position:absolute;
+    left:-7px; top:4px;
+    width:12px; height:12px;
+    background:var(--steel-light);
+    border:2px solid var(--navy);
+    border-radius:50%;
+  }
+  .log-head{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .log-icon{
+    flex-shrink:0;
+    width:44px; height:44px;
+    border:1.5px solid var(--grid-line);
+    border-radius:6px;
+    background:rgba(255,255,255,0.03);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .log-icon svg{ width:24px; height:24px; }
+  .log-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--steel-light);
+    margin-bottom:4px;
+    letter-spacing:0.04em;
+  }
+  .log-role{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:18px;
+    color:var(--white);
+    margin-bottom:3px;
+  }
+  .log-org{
+    font-size:13px;
+    color:var(--steel-light);
+  }
+  .log-desc{
+    font-size:14.5px;
+    line-height:1.6;
+    color:#C9D3D8;
+    max-width:60ch;
+    margin-top:12px;
+    margin-left:58px;
+  }
+  @media (max-width: 480px){
+    .log-desc{ margin-left:0; }
+  }
+
+  /* ===== TOOLS — TAGS ===== */
+  .tools-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:14px;
+  }
+  .tool-card{
+    background:var(--paper);
+    border-radius:4px;
+    padding:18px 20px;
+    box-shadow:0 10px 26px rgba(0,0,0,0.25);
+  }
+  .tool-card .name{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:15px;
+    color:var(--ink);
+    margin-bottom:5px;
+  }
+  .tool-card .use{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+
+  /* ===== CONTACT — CLOSING TICKET ===== */
+  .contact-ticket{
+    background:var(--paper);
+    border-radius:4px;
+    padding:36px 32px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  .contact-ticket h2{
+    font-size:26px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .contact-ticket p{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    max-width:50ch;
+    margin:0 auto 22px;
+    line-height:1.6;
+  }
+  .contact-row{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .contact-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:4px;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .contact-btn.primary{
+    background:var(--stamp-green);
+    border-color:var(--stamp-green);
+    color:var(--white);
+  }
+  .contact-btn:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .contact-btn.primary:hover{ background:#25553f; border-color:#25553f; }
+
+  footer{
+    padding:24px 0 40px;
+    text-align:center;
+  }
+  footer p{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--steel-light);
+    letter-spacing:0.05em;
+  }
+
+  @media (max-width: 720px){
+    .ticket-body{ grid-template-columns:1fr; }
+    .ticket-art{ order:-1; }
+    .ticket-art svg{ max-width:150px; }
+    .ticket-name{ font-size:32px; }
+    .nav-row nav a{ margin-left:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="nav-row">
+    <div class="brand">R. Pangilinan</div>
+    <nav>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <div class="ticket">
+    <div class="ticket-head">
+      <div>
+        <div class="paper-eyebrow">Work Order</div>
+        <div class="wo-num">WO-2026-014 &nbsp;·&nbsp; Property &amp; Facilities</div>
+      </div>
+      <div class="stamp">Available</div>
+    </div>
+
+    <div class="ticket-body">
+      <div>
+        <h1 class="ticket-name">Ryan Pangilinan</h1>
+        <div class="ticket-role">Maintenance Coordinator / Assistant Property Manager</div>
+        <p class="ticket-desc">
+          I keep properties running and tenants happy — dispatching repairs, tracking work orders end to end, and coordinating vendors and schedules. Background spans hands-on maintenance, logistics coordination, and IT support, so I catch issues most coordinators miss.
+        </p>
+        <div class="field-row">
+          <div class="field"><span class="k">Based in</span><span class="v">Caloocan, Philippines</span></div>
+          <div class="field"><span class="k">Seeking</span><span class="v">Remote — US / AU clients</span></div>
+          <div class="field"><span class="k">Also targeting</span><span class="v">Home Care Scheduler</span></div>
+        </div>
+      </div>
+      <div class="ticket-art">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="100" cy="100" r="92" stroke="#4C7A8C" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.5"/>
+          <rect x="52" y="70" width="96" height="76" rx="4" stroke="#1F2A33" stroke-width="2.5"/>
+          <rect x="52" y="70" width="96" height="20" rx="4" stroke="#1F2A33" stroke-width="2.5" fill="#2F6B4F" fill-opacity="0.12"/>
+          <path d="M78 70 V56 a12 12 0 0 1 24 0 V70" stroke="#1F2A33" stroke-width="2.5"/>
+          <path d="M98 70 V56 a12 12 0 0 1 24 0 V70" stroke="#1F2A33" stroke-width="2.5"/>
+          <line x1="52" y1="112" x2="148" y2="112" stroke="#1F2A33" stroke-width="1.5" opacity="0.35"/>
+          <path d="M120 128 l8 8 16 -16" stroke="#2F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g transform="translate(58,120)">
+            <path d="M0 0 L14 14" stroke="#4C7A8C" stroke-width="3" stroke-linecap="round"/>
+            <path d="M0 14 L14 0" stroke="#4C7A8C" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="7" cy="7" r="10" stroke="#4C7A8C" stroke-width="2" opacity="0.4"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ticket-footer">
+      <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
+      <a href="tel:+639462422255">+63 946 242 2255</a>
+    </div>
+  </div>
+</div>
+
+<section id="skills" class="wrap">
+  <div class="sec-head">
+    <span class="tag">01</span>
+    <h2>Core Skills</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="checklist">
+    <div class="check-item">
+      <div class="box"></div>
+      <div>
+        <div class="title">Work order management</div>
+        <div class="desc">Logs, prioritizes, and tracks maintenance requests from intake to close-out, keeping tenants and owners updated at each step.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="box"></div>
+      <div>
+        <div class="title">Vendor & technician coordination</div>
+        <div class="desc">Schedules contractors and in-house techs, confirms job completion, and follows up on quality and timing.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="box"></div>
+      <div>
+        <div class="title">Hands-on maintenance background</div>
+        <div class="desc">Direct experience as a diesel/heavy equipment mechanic and property owner-operator, so reported issues get read correctly the first time.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="box"></div>
+      <div>
+        <div class="title">Scheduling & dispatch</div>
+        <div class="desc">Logistics coordination background — routing, sequencing, and time-window management for field work.</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="box"></div>
+      <div>
+        <div class="title">Technical troubleshooting</div>
+        <div class="desc">Years in IT and electronics repair — comfortable diagnosing equipment issues and picking up new software fast.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="sec-head">
+    <span class="tag">02</span>
+    <h2>Experience Log</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="log">
+    <div class="log-entry">
+      <div class="log-head">
+        <div class="log-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 21V10l9-6 9 6v11" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M9 21v-7h6v7" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M14 6.5l4-1.5v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="log-date">2023 — Present</div>
+          <div class="log-role">Owner / Maintenance</div>
+          <div class="log-org">Residential Apartment, Caloocan</div>
+        </div>
+      </div>
+      <div class="log-desc">Handles all property maintenance, tenant requests, and repair scheduling for a residential rental property.</div>
+    </div>
+    <div class="log-entry">
+      <div class="log-head">
+        <div class="log-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 21V9l8-5 8 5v12" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M8 21v-6h3v6M13 21v-6h3v6" stroke="#7FA6B5" stroke-width="1.6"/>
+            <path d="M4 12h16" stroke="#7FA6B5" stroke-width="1.4" opacity="0.6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="log-date">2019 — Present</div>
+          <div class="log-role">Small Business Owner</div>
+          <div class="log-org">Mini Grocery</div>
+        </div>
+      </div>
+      <div class="log-desc">Runs day-to-day operations, inventory, and vendor relationships for an independent grocery business.</div>
+    </div>
+    <div class="log-entry">
+      <div class="log-head">
+        <div class="log-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" stroke="#7FA6B5" stroke-width="1.6"/>
+            <path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.6 1.6M7.6 16.4L6 18M18 18l-1.6-1.6M7.6 7.6L6 6" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="log-date">2016 — 2018</div>
+          <div class="log-role">Logistics Coordinator / Heavy Equipment Mechanic</div>
+          <div class="log-org">YANMAR / KEP</div>
+        </div>
+      </div>
+      <div class="log-desc">Coordinated equipment logistics and performed diesel and heavy equipment repairs.</div>
+    </div>
+    <div class="log-entry">
+      <div class="log-head">
+        <div class="log-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="16" height="12" rx="1.5" stroke="#7FA6B5" stroke-width="1.6"/>
+            <path d="M9 20h6M12 16v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M7 9l3 3 6-6" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="log-date">2012 — 2015</div>
+          <div class="log-role">Technician, Warranty Section</div>
+          <div class="log-org">CD-R King</div>
+        </div>
+      </div>
+      <div class="log-desc">Handled nationwide warranty repairs for electronics and gadgets; also worked with solar energy products — later designed and installed a solar power system for his own home, still running today.</div>
+    </div>
+    <div class="log-entry">
+      <div class="log-head">
+        <div class="log-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="18" height="12" rx="1.5" stroke="#7FA6B5" stroke-width="1.6"/>
+            <path d="M8 21h8M12 17v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M7 10l2.5 2.5L14 8" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="log-date">2006 — 2012</div>
+          <div class="log-role">Freelance IT Technician</div>
+          <div class="log-org">Self-employed</div>
+        </div>
+      </div>
+      <div class="log-desc">Provided computer repair, troubleshooting, and tech support for individuals and small businesses.</div>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="wrap">
+  <div class="sec-head">
+    <span class="tag">03</span>
+    <h2>Software & Platforms</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="name">AppFolio</div>
+      <div class="use">Property management software — units, tenants, and maintenance requests.</div>
+    </div>
+    <div class="tool-card">
+      <div class="name">GoHighLevel</div>
+      <div class="use">CRM and workflow automation for scheduling and follow-ups.</div>
+    </div>
+    <div class="tool-card">
+      <div class="name">Ascend TMS</div>
+      <div class="use">Transportation management system for dispatch and logistics tracking.</div>
+    </div>
+    <div class="tool-card">
+      <div class="name">General TMS platforms</div>
+      <div class="use">Comfortable picking up other free and basic transportation/dispatch software.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap">
+  <div class="contact-ticket">
+    <div class="paper-eyebrow" style="margin-bottom:10px;">Close Out</div>
+    <h2>Ready when you are</h2>
+    <p>Open to remote Maintenance Coordinator, Assistant Property Manager, and Home Care Scheduler roles with US and Australian teams.</p>
+    <div class="contact-row">
+      <a class="contact-btn primary" href="mailto:ryanuban0000@gmail.com">Email me</a>
+      <a class="contact-btn" href="tel:+639462422255">Call / Text</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Ryan Pangilinan · Caloocan, Philippines · Available for remote work</p>
+</footer>
+
+</body>
+</html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
