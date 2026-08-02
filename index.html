@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en"><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,1181 +6,602 @@
 <title>Ryan Pangilinan — Maintenance Coordinator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy: #16324F;
-    --navy-deep: #0E2438;
-    --grid-line: rgba(255,255,255,0.07);
-    --paper: #EDE6D3;
-    --paper-dark: #E2DABE;
-    --ink: #1F2A33;
-    --ink-soft: #4A5760;
-    --steel: #4C7A8C;
-    --steel-light: #7FA6B5;
-    --stamp-green: #2F6B4F;
-    --stamp-red: #9E3B2E;
-    --white: #FBF9F3;
+    --bg: #F5F4F0;
+    --bg-alt: #ECE9E1;
+    --ink: #21241F;
+    --ink-soft: #565A52;
+    --navy: #1B2A3D;
+    --navy-soft: #2E4056;
+    --steel: #55707E;
+    --rust: #B5651D;
+    --rust-light: #D98B4F;
+    --line: #D6D2C6;
+    --paper-shadow: rgba(27,42,61,0.14);
+    --focus: #B5651D;
   }
 
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
-  }
-
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--navy);
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 36px 36px;
+    background:var(--bg);
     color:var(--ink);
-    font-family:'Inter', sans-serif;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
 
-  a{ color:inherit; }
-  a:focus-visible, button:focus-visible{
-    outline: 2px solid var(--steel-light);
+  ::selection{ background: var(--rust-light); color:#fff; }
+
+  a{ color: var(--rust); }
+  :focus-visible{
+    outline: 3px solid var(--focus);
     outline-offset: 3px;
   }
 
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    font-size:12px;
-    color:var(--steel-light);
-  }
-
-  .paper-eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    font-size:11px;
-    color:var(--ink-soft);
-  }
-
-  h1,h2,h3{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    margin:0;
-  }
-
   .wrap{
-    max-width:960px;
-    margin:0 auto;
-    padding:0 24px;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
   }
 
-  /* ===== HEADER / NAV ===== */
-  header{
-    padding:28px 0 10px;
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245,244,240,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
   }
-  .nav-row{
+  .nav-inner{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 16px 28px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    color:var(--white);
-    flex-wrap:wrap;
-    gap:10px;
+    justify-content:space-between;
   }
-  .nav-row .brand{
-    font-family:'Oswald', sans-serif;
-    font-size:15px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--white);
-  }
-  .nav-row nav a{
+  .nav-mark{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
+    font-weight:600;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--navy);
     text-decoration:none;
-    color:var(--steel-light);
-    margin-left:20px;
-    letter-spacing:0.05em;
+    display:flex;
+    align-items:center;
+    gap:8px;
   }
-  .nav-row nav a:hover{ color:var(--white); }
+  .nav-mark .dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--rust);
+    display:inline-block;
+  }
+  nav.nav-links{ display:flex; gap: 24px; }
+  nav.nav-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-decoration:none;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  nav.nav-links a:hover{ color: var(--rust); }
 
-  /* ===== HERO — WORK ORDER TICKET ===== */
+  @media (max-width:600px){
+    nav.nav-links{ gap: 14px; }
+    nav.nav-links a{ font-size: 11px; }
+  }
+
   .hero{
-    padding:40px 0 60px;
+    padding: 56px 0 48px;
   }
   .ticket{
-    background:var(--paper);
-    border:1px solid rgba(0,0,0,0.15);
-    border-radius:4px;
-    padding:0;
-    position:relative;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-    overflow:hidden;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 18px 40px -20px var(--paper-shadow);
+    position: relative;
+    overflow: hidden;
   }
-  .ticket-head{
+  .ticket-top{
     display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    padding:22px 28px 18px;
-    border-bottom:2px dashed rgba(31,42,51,0.25);
-    gap:16px;
-    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 30px 24px;
+    background: var(--navy);
+    color: #F2EFE7;
   }
-  .ticket-head .wo-num{
+  .ticket-top .label{
     font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    color:var(--ink-soft);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #B9C4CE;
+    margin: 0 0 6px;
   }
-  .ticket-body{
-    padding:30px 28px 34px;
-    display:grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap:28px;
-    align-items:center;
-  }
-  .ticket-name{
-    font-size:42px;
-    line-height:1.05;
-    color:var(--ink);
-    margin-bottom:6px;
-  }
-  .ticket-role{
+  .ticket-top .wo-id{
     font-family:'IBM Plex Mono', monospace;
-    font-size:14px;
-    color:var(--steel);
-    margin-bottom:18px;
-    letter-spacing:0.02em;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--rust-light);
   }
-  .ticket-desc{
-    font-size:15px;
-    line-height:1.6;
-    color:var(--ink-soft);
-    max-width:46ch;
-    margin-bottom:20px;
-  }
-  .field-row{
-    display:flex;
-    gap:28px;
-    flex-wrap:wrap;
-    margin-top:6px;
-  }
-  .field{
+  .status-chip{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--rust);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 3px;
+    white-space: nowrap;
+    align-self: flex-start;
   }
-  .field .k{ color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em; font-size:10px; display:block; margin-bottom:3px;}
-  .field .v{ color:var(--ink); font-weight:600; }
 
-  .stamp{
-    font-family:'Oswald', sans-serif;
-    font-size:18px;
-    letter-spacing:0.08em;
-    color:var(--stamp-green);
-    border:3px solid var(--stamp-green);
-    border-radius:6px;
-    padding:8px 14px;
-    display:inline-block;
-    transform:rotate(-8deg);
-    opacity:0.9;
-    text-align:center;
+  .ticket-body{
+    padding: 34px 30px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    align-items: start;
+  }
+  .ticket-main h1{
+    font-family:'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.04;
+    margin: 0 0 10px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .ticket-main .role{
+    font-family:'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--rust);
+    margin: 0 0 16px;
+  }
+  .ticket-main p.summary{
+    max-width: 54ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    margin: 0 0 20px;
+  }
+  .ticket-fields{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 12px 28px;
+    margin-top: 6px;
+    max-width: 480px;
+  }
+  .field .k{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    display:block;
+    margin-bottom: 3px;
+  }
+  .field .v{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .field .v a{ text-decoration: none; color: var(--ink); font-weight:500; }
+  .field .v a:hover{ color: var(--rust); }
+
+  .badge-art{
+    width: 148px;
+    height: 148px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .ticket-bottom{
+    border-top: 1px dashed var(--line);
+    padding: 16px 30px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    background: var(--bg-alt);
+  }
+  .ticket-bottom .stamp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .ticket-bottom .cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration:none;
+    color: #fff;
+    background: var(--navy);
+    padding: 10px 18px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+  .ticket-bottom .cta:hover{ background: var(--rust); }
+
+  @media (max-width: 640px){
+    .ticket-body{ grid-template-columns: 1fr; }
+    .badge-art{ display:none; }
+    .ticket-fields{ grid-template-columns: 1fr 1fr; max-width: none; }
+    .ticket-top{ flex-direction:column; }
+  }
+
+  .section{ padding: 54px 0; border-top: 1px solid var(--line); }
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .section-head .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--rust);
     white-space:nowrap;
   }
-
-  .ticket-art{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  .section-head h2{
+    font-family:'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0;
+    color: var(--navy);
   }
-  .ticket-art svg{ width:100%; max-width:220px; height:auto; }
-
-  .ticket-footer{
-    border-top:2px dashed rgba(31,42,51,0.25);
-    padding:16px 28px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  .ticket-footer a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    text-decoration:none;
-    color:var(--steel);
-    border-bottom:1px solid var(--steel-light);
-  }
-  .ticket-footer a:hover{ color:var(--ink); }
-
-  /* ===== SECTION HEADERS ===== */
-  section{ padding:54px 0; }
-  .sec-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    margin-bottom:28px;
-    color:var(--white);
-  }
-  .sec-head h2{
-    font-size:26px;
-    color:var(--white);
-  }
-  .sec-head .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--steel-light);
-  }
-  .sec-line{
-    flex:1;
-    height:1px;
-    background:var(--grid-line);
-  }
-
-  /* ===== SKILLS — CHECKLIST ===== */
-  .checklist{
-    background:var(--paper);
-    border-radius:4px;
-    padding:8px 0;
-    box-shadow:0 16px 40px rgba(0,0,0,0.3);
-  }
-  .check-item{
-    display:flex;
-    align-items:flex-start;
-    gap:14px;
-    padding:16px 26px;
-    border-bottom:1px solid rgba(31,42,51,0.12);
-  }
-  .check-item:last-child{ border-bottom:none; }
-  .box{
-    width:18px; height:18px;
-    border:2px solid var(--stamp-green);
-    border-radius:3px;
-    flex-shrink:0;
-    margin-top:3px;
-    position:relative;
-  }
-  .box::after{
+  .section-head::after{
     content:"";
-    position:absolute;
-    left:3px; top:-1px;
-    width:5px; height:9px;
-    border-right:2px solid var(--stamp-green);
-    border-bottom:2px solid var(--stamp-green);
-    transform:rotate(40deg);
-  }
-  .check-item .title{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    font-size:15px;
-    letter-spacing:0.02em;
-    color:var(--ink);
-    margin-bottom:3px;
-  }
-  .check-item .desc{
-    font-size:13.5px;
-    color:var(--ink-soft);
-    line-height:1.5;
+    flex: 1;
+    height: 1px;
+    background: var(--line);
   }
 
-  /* ===== EXPERIENCE — TICKET LOG ===== */
+  .systems-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .sys-card{
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 20px;
+    background: #fff;
+  }
+  .sys-card .n{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--steel);
+    letter-spacing: 0.06em;
+    display:block;
+    margin-bottom: 6px;
+  }
+  .sys-card h3{
+    font-family:'Archivo', sans-serif;
+    font-size: 16.5px;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .sys-card p{
+    margin: 0;
+    font-size: 13.6px;
+    color: var(--ink-soft);
+  }
+
   .log{
-    border-left:2px solid var(--grid-line);
-    margin-left:8px;
+    border-left: 2px solid var(--line);
+    margin-left: 6px;
+    padding-left: 26px;
   }
   .log-entry{
-    position:relative;
-    padding:0 0 34px 30px;
+    position: relative;
+    padding-bottom: 30px;
   }
-  .log-entry:last-child{ padding-bottom:0; }
+  .log-entry:last-child{ padding-bottom: 0; }
   .log-entry::before{
     content:"";
     position:absolute;
-    left:-7px; top:4px;
-    width:12px; height:12px;
-    background:var(--steel-light);
-    border:2px solid var(--navy);
-    border-radius:50%;
+    left: -32px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--rust);
   }
-  .log-head{
-    display:flex;
-    align-items:flex-start;
-    gap:14px;
-  }
-  .log-icon{
-    flex-shrink:0;
-    width:44px; height:44px;
-    border:1.5px solid var(--grid-line);
-    border-radius:6px;
-    background:rgba(255,255,255,0.03);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .log-icon svg{ width:24px; height:24px; }
-  .log-date{
+  .log-entry .meta{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--steel-light);
-    margin-bottom:4px;
-    letter-spacing:0.04em;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--steel);
+    text-transform: uppercase;
+    margin-bottom: 4px;
   }
-  .log-role{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    font-size:18px;
-    color:var(--white);
-    margin-bottom:3px;
+  .log-entry h3{
+    font-family:'Archivo', sans-serif;
+    font-size: 17px;
+    margin: 0 0 4px;
+    color: var(--navy);
   }
-  .log-org{
-    font-size:13px;
-    color:var(--steel-light);
+  .log-entry .org{
+    font-size: 13.5px;
+    color: var(--rust);
+    font-weight: 600;
+    margin-bottom: 8px;
   }
-  .log-desc{
-    font-size:14.5px;
-    line-height:1.6;
-    color:#C9D3D8;
-    max-width:60ch;
-    margin-top:12px;
-    margin-left:58px;
-  }
-  @media (max-width: 480px){
-    .log-desc{ margin-left:0; }
+  .log-entry p{
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    max-width: 62ch;
   }
 
-  /* ===== TOOLS — TAGS ===== */
-  .tools-grid{
+  .edu-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:14px;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 16px;
   }
-  .tool-card{
-    background:var(--paper);
-    border-radius:4px;
-    padding:18px 20px;
-    box-shadow:0 10px 26px rgba(0,0,0,0.25);
+  .edu-card{
+    padding: 18px 20px;
+    border-left: 3px solid var(--rust);
+    background: var(--bg-alt);
+    border-radius: 0 6px 6px 0;
   }
-  .tool-card .name{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    font-size:15px;
-    color:var(--ink);
-    margin-bottom:5px;
+  .edu-card .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--steel);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
   }
-  .tool-card .use{
-    font-size:13px;
-    color:var(--ink-soft);
-    line-height:1.5;
+  .edu-card h3{
+    font-family:'Archivo', sans-serif;
+    font-size: 15.5px;
+    margin: 0;
+    color: var(--ink);
   }
 
-  /* ===== CONTACT — CLOSING TICKET ===== */
-  .contact-ticket{
-    background:var(--paper);
-    border-radius:4px;
-    padding:36px 32px;
-    text-align:center;
-    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  footer{
+    background: var(--navy);
+    color: #E9E5D8;
+    padding: 54px 0 40px;
+    margin-top: 20px;
   }
-  .contact-ticket h2{
-    font-size:26px;
-    color:var(--ink);
-    margin-bottom:10px;
+  footer h2{
+    font-family:'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    margin: 0 0 10px;
+    color: #fff;
   }
-  .contact-ticket p{
-    font-size:14.5px;
-    color:var(--ink-soft);
-    max-width:50ch;
-    margin:0 auto 22px;
-    line-height:1.6;
+  footer p{
+    color: #B9C4CE;
+    max-width: 50ch;
+    margin: 0 0 26px;
+    font-size: 15px;
   }
   .contact-row{
     display:flex;
-    justify-content:center;
-    gap:16px;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
+    gap: 14px;
   }
-  .contact-btn{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
+  .contact-pill{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 12px 18px;
+    border-radius: 6px;
     text-decoration:none;
-    padding:12px 20px;
-    border-radius:4px;
-    border:1.5px solid var(--ink);
-    color:var(--ink);
-    transition:background 0.15s ease, color 0.15s ease;
-  }
-  .contact-btn.primary{
-    background:var(--stamp-green);
-    border-color:var(--stamp-green);
-    color:var(--white);
-  }
-  .contact-btn:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-  .contact-btn.primary:hover{ background:#25553f; border-color:#25553f; }
-
-  footer{
-    padding:24px 0 40px;
-    text-align:center;
-  }
-  footer p{
+    color: #F2EFE7;
     font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--steel-light);
-    letter-spacing:0.05em;
+    font-size: 13.5px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .contact-pill:hover{
+    background: var(--rust);
+    border-color: var(--rust);
+  }
+  .foot-bottom{
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: #8494A1;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  @media (max-width: 720px){
-    .ticket-body{ grid-template-columns:1fr; }
-    .ticket-art{ order:-1; }
-    .ticket-art svg{ max-width:150px; }
-    .ticket-name{ font-size:32px; }
-    .nav-row nav a{ margin-left:12px; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<header class="wrap">
-  <div class="nav-row">
-    <div class="brand">R. Pangilinan</div>
-    <nav>
-      <a href="#skills">Skills</a>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-mark"><span class="dot"></span>R. PANGILINAN</a>
+    <nav class="nav-links">
+      <a href="#systems">Systems</a>
       <a href="#experience">Experience</a>
-      <a href="#tools">Tools</a>
+      <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<div class="hero wrap">
-  <div class="ticket">
-    <div class="ticket-head">
-      <div>
-        <div class="paper-eyebrow">Work Order</div>
-        <div class="wo-num">WO-2026-014 &nbsp;·&nbsp; Property &amp; Facilities</div>
-      </div>
-      <div class="stamp">Available</div>
-    </div>
-
-    <div class="ticket-body">
-      <div>
-        <h1 class="ticket-name">Ryan Pangilinan</h1>
-        <div class="ticket-role">Maintenance Coordinator / Assistant Property Manager</div>
-        <p class="ticket-desc">
-          I keep properties running and tenants happy — dispatching repairs, tracking work orders end to end, and coordinating vendors and schedules. Background spans hands-on maintenance, logistics coordination, and IT support, so I catch issues most coordinators miss.
-        </p>
-        <div class="field-row">
-          <div class="field"><span class="k">Based in</span><span class="v">Caloocan, Philippines</span></div>
-          <div class="field"><span class="k">Seeking</span><span class="v">Remote — US / AU clients</span></div>
-          <div class="field"><span class="k">Also targeting</span><span class="v">Home Care Scheduler</span></div>
+<main id="top">
+  <section class="hero wrap">
+    <div class="ticket">
+      <div class="ticket-top">
+        <div>
+          <p class="label">Service Request &mdash; Candidate Profile</p>
+          <p class="wo-id">WORK ORDER NO. MC&#8209;2026&#8209;014</p>
         </div>
+        <span class="status-chip">Available Now</span>
       </div>
-      <div class="ticket-art">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="100" cy="100" r="92" stroke="#4C7A8C" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.5"/>
-          <rect x="52" y="70" width="96" height="76" rx="4" stroke="#1F2A33" stroke-width="2.5"/>
-          <rect x="52" y="70" width="96" height="20" rx="4" stroke="#1F2A33" stroke-width="2.5" fill="#2F6B4F" fill-opacity="0.12"/>
-          <path d="M78 70 V56 a12 12 0 0 1 24 0 V70" stroke="#1F2A33" stroke-width="2.5"/>
-          <path d="M98 70 V56 a12 12 0 0 1 24 0 V70" stroke="#1F2A33" stroke-width="2.5"/>
-          <line x1="52" y1="112" x2="148" y2="112" stroke="#1F2A33" stroke-width="1.5" opacity="0.35"/>
-          <path d="M120 128 l8 8 16 -16" stroke="#2F6B4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <g transform="translate(58,120)">
-            <path d="M0 0 L14 14" stroke="#4C7A8C" stroke-width="3" stroke-linecap="round"/>
-            <path d="M0 14 L14 0" stroke="#4C7A8C" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="7" cy="7" r="10" stroke="#4C7A8C" stroke-width="2" opacity="0.4"/>
-          </g>
+
+      <div class="ticket-body">
+        <div class="ticket-main">
+          <h1>Ryan Pangilinan</h1>
+          <p class="role">Maintenance Coordinator &amp; Assistant Property Manager</p>
+          <p class="summary">Hands-on maintenance and mechanical background paired with real coordination experience &mdash; managing vendors, dispatch, and day-to-day property upkeep. Comfortable running the software side too: AppFolio, GoHighLevel, and TMS dispatch platforms.</p>
+
+          <div class="ticket-fields">
+            <div class="field">
+              <span class="k">Based</span>
+              <span class="v">Caloocan, Philippines</span>
+            </div>
+            <div class="field">
+              <span class="k">Availability</span>
+              <span class="v">Remote &mdash; US / AU clients</span>
+            </div>
+            <div class="field">
+              <span class="k">Email</span>
+              <span class="v"><a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a></span>
+            </div>
+            <div class="field">
+              <span class="k">Phone</span>
+              <span class="v"><a href="tel:+639462422255">+63 946 242 2255</a></span>
+            </div>
+          </div>
+        </div>
+
+        <svg class="badge-art" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="House and wrench icon">
+          <circle cx="80" cy="80" r="78" fill="#F5F4F0" stroke="#D6D2C6" stroke-width="2"/>
+          <path d="M80 34 L128 70 V126 H32 V70 Z" fill="#1B2A3D"/>
+          <path d="M80 34 L128 70 H32 Z" fill="#2E4056"/>
+          <rect x="70" y="94" width="20" height="32" fill="#F5F4F0"/>
+          <path d="M58 58c-9 0-16 7-16 16 0 3 .6 5.8 1.7 8.3l-13.6 13.6a5 5 0 0 0 7 7l13.6-13.6c2.5 1.1 5.3 1.7 8.3 1.7 9 0 16-7 16-16s-7-16-16-16Zm0 8c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8Z" fill="#B5651D"/>
         </svg>
       </div>
-    </div>
 
-    <div class="ticket-footer">
-      <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
-      <a href="tel:+639462422255">+63 946 242 2255</a>
+      <div class="ticket-bottom">
+        <span class="stamp">Priority: Fill Immediately</span>
+        <a class="cta" href="mailto:ryanuban0000@gmail.com">Contact Ryan &rarr;</a>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<section id="skills" class="wrap">
-  <div class="sec-head">
-    <span class="tag">01</span>
-    <h2>Core Skills</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="checklist">
-    <div class="check-item">
-      <div class="box"></div>
-      <div>
-        <div class="title">Work order management</div>
-        <div class="desc">Logs, prioritizes, and tracks maintenance requests from intake to close-out, keeping tenants and owners updated at each step.</div>
+  <section class="section wrap" id="systems">
+    <div class="section-head">
+      <span class="tag">WO&#8209;01</span>
+      <h2>Systems &amp; Software</h2>
+    </div>
+    <div class="systems-grid">
+      <div class="sys-card">
+        <span class="n">01</span>
+        <h3>AppFolio</h3>
+        <p>Property management software &mdash; used day-to-day for managing a residential apartment property.</p>
+      </div>
+      <div class="sys-card">
+        <span class="n">02</span>
+        <h3>GoHighLevel (GHL)</h3>
+        <p>CRM &amp; workflow platform for scheduling, follow-ups, and coordination.</p>
+      </div>
+      <div class="sys-card">
+        <span class="n">03</span>
+        <h3>Ascend TMS</h3>
+        <p>Transportation management system, plus experience with other free/basic TMS platforms for dispatch.</p>
+      </div>
+      <div class="sys-card">
+        <span class="n">04</span>
+        <h3>Hands-On Maintenance</h3>
+        <p>Diesel &amp; heavy equipment mechanics background, plus a self-built and installed home solar power system.</p>
       </div>
     </div>
-    <div class="check-item">
-      <div class="box"></div>
-      <div>
-        <div class="title">Vendor & technician coordination</div>
-        <div class="desc">Schedules contractors and in-house techs, confirms job completion, and follows up on quality and timing.</div>
-      </div>
-    </div>
-    <div class="check-item">
-      <div class="box"></div>
-      <div>
-        <div class="title">Hands-on maintenance background</div>
-        <div class="desc">Direct experience as a diesel/heavy equipment mechanic and property owner-operator, so reported issues get read correctly the first time.</div>
-      </div>
-    </div>
-    <div class="check-item">
-      <div class="box"></div>
-      <div>
-        <div class="title">Scheduling & dispatch</div>
-        <div class="desc">Logistics coordination background — routing, sequencing, and time-window management for field work.</div>
-      </div>
-    </div>
-    <div class="check-item">
-      <div class="box"></div>
-      <div>
-        <div class="title">Technical troubleshooting</div>
-        <div class="desc">Years in IT and electronics repair — comfortable diagnosing equipment issues and picking up new software fast.</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="experience" class="wrap">
-  <div class="sec-head">
-    <span class="tag">02</span>
-    <h2>Experience Log</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="log">
-    <div class="log-entry">
-      <div class="log-head">
-        <div class="log-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 21V10l9-6 9 6v11" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M9 21v-7h6v7" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M14 6.5l4-1.5v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="log-date">2023 — Present</div>
-          <div class="log-role">Owner / Maintenance</div>
-          <div class="log-org">Residential Apartment, Caloocan</div>
-        </div>
-      </div>
-      <div class="log-desc">Handles all property maintenance, tenant requests, and repair scheduling for a residential rental property.</div>
+  <section class="section wrap" id="experience">
+    <div class="section-head">
+      <span class="tag">WO&#8209;02</span>
+      <h2>Experience Log</h2>
     </div>
-    <div class="log-entry">
-      <div class="log-head">
-        <div class="log-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 21V9l8-5 8 5v12" stroke="#7FA6B5" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M8 21v-6h3v6M13 21v-6h3v6" stroke="#7FA6B5" stroke-width="1.6"/>
-            <path d="M4 12h16" stroke="#7FA6B5" stroke-width="1.4" opacity="0.6"/>
-          </svg>
-        </div>
-        <div>
-          <div class="log-date">2019 — Present</div>
-          <div class="log-role">Small Business Owner</div>
-          <div class="log-org">Mini Grocery</div>
-        </div>
+    <div class="log">
+      <div class="log-entry">
+        <p class="meta">2023 &ndash; Present</p>
+        <h3>Owner / Maintenance</h3>
+        <p class="org">Residential Apartment Property</p>
+        <p>Owns and manages a residential apartment property &mdash; handling upkeep, repairs, and day-to-day maintenance coordination.</p>
       </div>
-      <div class="log-desc">Runs day-to-day operations, inventory, and vendor relationships for an independent grocery business.</div>
-    </div>
-    <div class="log-entry">
-      <div class="log-head">
-        <div class="log-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="3" stroke="#7FA6B5" stroke-width="1.6"/>
-            <path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.6 1.6M7.6 16.4L6 18M18 18l-1.6-1.6M7.6 7.6L6 6" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="log-date">2016 — 2018</div>
-          <div class="log-role">Logistics Coordinator / Heavy Equipment Mechanic</div>
-          <div class="log-org">YANMAR / KEP</div>
-        </div>
+      <div class="log-entry">
+        <p class="meta">2019 &ndash; 2026</p>
+        <h3>Small Business Owner</h3>
+        <p class="org">Mini Grocery</p>
+        <p>Ran a mini grocery business, overseeing daily operations end to end.</p>
       </div>
-      <div class="log-desc">Coordinated equipment logistics and performed diesel and heavy equipment repairs.</div>
-    </div>
-    <div class="log-entry">
-      <div class="log-head">
-        <div class="log-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="16" height="12" rx="1.5" stroke="#7FA6B5" stroke-width="1.6"/>
-            <path d="M9 20h6M12 16v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M7 9l3 3 6-6" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="log-date">2012 — 2015</div>
-          <div class="log-role">Technician, Warranty Section</div>
-          <div class="log-org">CD-R King</div>
-        </div>
+      <div class="log-entry">
+        <p class="meta">2016 &ndash; 2018</p>
+        <h3>Logistics Coordinator / Heavy Equipment Mechanic</h3>
+        <p class="org">YANMAR / KEP</p>
+        <p>Worked across diesel mechanics, heavy equipment repair, and logistics coordination.</p>
       </div>
-      <div class="log-desc">Handled nationwide warranty repairs for electronics and gadgets; also worked with solar energy products — later designed and installed a solar power system for his own home, still running today.</div>
-    </div>
-    <div class="log-entry">
-      <div class="log-head">
-        <div class="log-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="5" width="18" height="12" rx="1.5" stroke="#7FA6B5" stroke-width="1.6"/>
-            <path d="M8 21h8M12 17v4" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M7 10l2.5 2.5L14 8" stroke="#7FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="log-date">2006 — 2012</div>
-          <div class="log-role">Freelance IT Technician</div>
-          <div class="log-org">Self-employed</div>
-        </div>
+      <div class="log-entry">
+        <p class="meta">2012 &ndash; 2015</p>
+        <h3>Technician, Warranty Section</h3>
+        <p class="org">CD-R King</p>
+        <p>Handled nationwide repairs for CD-R King products and gadgets, including solar energy products.</p>
       </div>
-      <div class="log-desc">Provided computer repair, troubleshooting, and tech support for individuals and small businesses.</div>
+      <div class="log-entry">
+        <p class="meta">2006 &ndash; 2012</p>
+        <h3>Freelance IT Technician</h3>
+        <p class="org">Self-Employed</p>
+        <p>Provided computer repair, troubleshooting, and tech support for individuals and small businesses.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="tools" class="wrap">
-  <div class="sec-head">
-    <span class="tag">03</span>
-    <h2>Software & Platforms</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="tools-grid">
-    <div class="tool-card">
-      <div class="name">AppFolio</div>
-      <div class="use">Property management software — units, tenants, and maintenance requests.</div>
+  <section class="section wrap" id="education">
+    <div class="section-head">
+      <span class="tag">WO&#8209;03</span>
+      <h2>Education &amp; Training</h2>
     </div>
-    <div class="tool-card">
-      <div class="name">GoHighLevel</div>
-      <div class="use">CRM and workflow automation for scheduling and follow-ups.</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <p class="meta">2002 &ndash; 2004</p>
+        <h3>Diploma in Computer and Electronics</h3>
+      </div>
+      <div class="edu-card">
+        <p class="meta">2015</p>
+        <h3>Diesel Mechanic Tech-Voc</h3>
+      </div>
     </div>
-    <div class="tool-card">
-      <div class="name">Ascend TMS</div>
-      <div class="use">Transportation management system for dispatch and logistics tracking.</div>
-    </div>
-    <div class="tool-card">
-      <div class="name">General TMS platforms</div>
-      <div class="use">Comfortable picking up other free and basic transportation/dispatch software.</div>
-    </div>
-  </div>
-</section>
+  </section>
+</main>
 
-<section id="contact" class="wrap">
-  <div class="contact-ticket">
-    <div class="paper-eyebrow" style="margin-bottom:10px;">Close Out</div>
-    <h2>Ready when you are</h2>
-    <p>Open to remote Maintenance Coordinator, Assistant Property Manager, and Home Care Scheduler roles with US and Australian teams.</p>
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's talk about the role.</h2>
+    <p>Open to Maintenance Coordinator, Assistant Property Manager, and Home Care Scheduler positions &mdash; remote, working with US or Australian clients.</p>
     <div class="contact-row">
-      <a class="contact-btn primary" href="mailto:ryanuban0000@gmail.com">Email me</a>
-      <a class="contact-btn" href="tel:+639462422255">Call / Text</a>
+      <a class="contact-pill" href="mailto:ryanuban0000@gmail.com">&#9993; ryanuban0000@gmail.com</a>
+      <a class="contact-pill" href="tel:+639462422255">&#9742; +63 946 242 2255</a>
+      <span class="contact-pill" style="cursor:default;">&#128205; Caloocan, Philippines</span>
+    </div>
+    <div class="foot-bottom">
+      <span>Ryan Pangilinan &mdash; Maintenance Coordinator</span>
+      <span>Remote &mdash; Available Now</span>
     </div>
   </div>
-</section>
-
-<footer class="wrap">
-  <p>Ryan Pangilinan · Caloocan, Philippines · Available for remote work</p>
 </footer>
-
-</body>
-</html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ryan Pangilinan — Logistics Coordinator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy: #12213D;
-    --navy-deep: #0A1526;
-    --amber: #E8A33D;
-    --cream: #F7F5F0;
-    --ink: #1C1F26;
-    --muted: #6B7280;
-    --line: #D8D3C7;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    line-height:1.6;
-  }
-  h1,h2,h3{
-    font-family:'Big Shoulders Display', sans-serif;
-    text-transform:uppercase;
-    letter-spacing:0.01em;
-  }
-  .mono{ font-family:'JetBrains Mono', monospace; }
-  a{ color:inherit; text-decoration:none; }
-
-  /* ===== HEADER STRIP ===== */
-  .topbar{
-    background:var(--navy-deep);
-    color:var(--cream);
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.72rem;
-    letter-spacing:0.08em;
-    padding:9px 24px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:6px;
-    text-transform:uppercase;
-  }
-  .topbar span{ opacity:0.85; }
-  .topbar b{ color:var(--amber); }
-
-  /* ===== HERO / WAYBILL ===== */
-  .hero{
-    background:var(--navy);
-    color:var(--cream);
-    padding:64px 24px 0;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero-inner{
-    max-width:1000px;
-    margin:0 auto;
-  }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.78rem;
-    letter-spacing:0.18em;
-    color:var(--amber);
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:28px;
-    height:2px;
-    background:var(--amber);
-    display:inline-block;
-  }
-  .hero h1{
-    font-size:clamp(3.2rem, 10vw, 6.5rem);
-    font-weight:800;
-    line-height:0.92;
-    margin:18px 0 6px;
-  }
-  .hero .role{
-    font-family:'JetBrains Mono', monospace;
-    font-size:clamp(0.85rem, 2vw, 1.05rem);
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:#C9D2E3;
-    margin-bottom:34px;
-  }
-  .hero .role em{ color:var(--amber); font-style:normal; }
-
-  /* manifest field strip */
-  .manifest{
-    background:var(--navy-deep);
-    border:1px solid #24345A;
-    border-radius:2px;
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    margin-bottom:-1px;
-  }
-  .manifest .field{
-    padding:16px 20px;
-    border-right:1px solid #24345A;
-  }
-  .manifest .field:last-child{ border-right:none; }
-  .manifest .field label{
-    display:block;
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.62rem;
-    letter-spacing:0.12em;
-    color:var(--amber);
-    text-transform:uppercase;
-    margin-bottom:6px;
-  }
-  .manifest .field a, .manifest .field span{
-    font-size:0.88rem;
-    color:var(--cream);
-    word-break:break-word;
-  }
-
-  @media (max-width: 720px){
-    .manifest{ grid-template-columns:repeat(2, 1fr); }
-    .manifest .field:nth-child(2){ border-right:none; }
-  }
-
-  /* ===== SECTION SHELL ===== */
-  section{
-    max-width:1000px;
-    margin:0 auto;
-    padding:72px 24px;
-  }
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    margin-bottom:32px;
-  }
-  .section-head .tag{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.72rem;
-    color:var(--muted);
-    letter-spacing:0.1em;
-  }
-  .section-head h2{
-    font-size:clamp(1.8rem, 4vw, 2.6rem);
-    color:var(--navy);
-  }
-  .rule{
-    height:1px;
-    background:var(--line);
-    flex:1;
-    margin-top:6px;
-  }
-
-  /* ===== SUMMARY ===== */
-  .summary-text{
-    font-size:1.08rem;
-    color:#3A3F4B;
-    max-width:64ch;
-  }
-
-  /* ===== SERVICES ===== */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .service-card{
-    background:var(--cream);
-    padding:26px 24px;
-  }
-  .service-card .num{
-    font-family:'JetBrains Mono', monospace;
-    color:var(--amber);
-    font-size:0.78rem;
-    display:block;
-    margin-bottom:8px;
-  }
-  .service-card h3{
-    font-size:1.15rem;
-    color:var(--navy);
-    margin-bottom:6px;
-    font-weight:700;
-  }
-  .service-card p{
-    color:var(--muted);
-    font-size:0.92rem;
-  }
-  @media (max-width:640px){ .services-grid{ grid-template-columns:1fr; } }
-
-  /* ===== ROUTE / EXPERIENCE ===== */
-  .route-wrap{ position:relative; padding-top:10px; }
-  .route-line{
-    position:absolute;
-    left:11px;
-    top:8px;
-    bottom:8px;
-    width:2px;
-    background:repeating-linear-gradient(to bottom, var(--amber) 0 6px, transparent 6px 12px);
-  }
-  .stop{
-    position:relative;
-    padding-left:44px;
-    margin-bottom:40px;
-  }
-  .stop:last-child{ margin-bottom:0; }
-  .stop::before{
-    content:"";
-    position:absolute;
-    left:2px;
-    top:4px;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    background:var(--navy);
-    border:3px solid var(--amber);
-  }
-  .stop .leg{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.72rem;
-    letter-spacing:0.08em;
-    color:var(--amber);
-    text-transform:uppercase;
-    background:var(--navy);
-    display:inline-block;
-    padding:3px 9px;
-    border-radius:2px;
-    margin-bottom:8px;
-  }
-  .stop h3{
-    font-size:1.4rem;
-    color:var(--navy);
-    margin-bottom:4px;
-  }
-  .stop .role-line{
-    color:var(--muted);
-    font-size:0.92rem;
-    font-style:normal;
-  }
-
-  /* ===== STRENGTHS + EDUCATION (side by side) ===== */
-  .two-col{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:48px;
-  }
-  @media (max-width:760px){ .two-col{ grid-template-columns:1fr; } }
-  .strength-list{ list-style:none; }
-  .strength-list li{
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
-  }
-  .strength-list li:first-child{ padding-top:0; }
-  .strength-list .mark{
-    color:var(--amber);
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-  }
-  .edu-item{ margin-bottom:22px; }
-  .edu-item:last-child{ margin-bottom:0; }
-  .edu-item .yr{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.75rem;
-    color:var(--amber);
-    display:block;
-    margin-bottom:4px;
-  }
-  .edu-item h4{
-    font-family:'Big Shoulders Display', sans-serif;
-    text-transform:uppercase;
-    font-size:1.15rem;
-    color:var(--navy);
-  }
-  .edu-item span.school{
-    color:var(--muted);
-    font-size:0.9rem;
-  }
-
-  /* ===== CONTACT / FOOTER ===== */
-  .contact-block{
-    background:var(--navy);
-    color:var(--cream);
-    padding:72px 24px;
-    text-align:center;
-  }
-  .contact-block .eyebrow{ justify-content:center; }
-  .contact-block .eyebrow::before{ display:none; }
-  .contact-block h2{
-    font-size:clamp(2.2rem, 6vw, 3.6rem);
-    margin:14px 0 24px;
-  }
-  .contact-links{
-    display:flex;
-    justify-content:center;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-top:8px;
-  }
-  .contact-links a{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.85rem;
-    letter-spacing:0.05em;
-    border:1px solid #33436A;
-    padding:12px 22px;
-    border-radius:2px;
-    transition:0.2s;
-  }
-  .contact-links a:hover{
-    background:var(--amber);
-    color:var(--navy-deep);
-    border-color:var(--amber);
-  }
-  footer{
-    text-align:center;
-    padding:18px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.68rem;
-    color:var(--muted);
-    background:var(--navy-deep);
-  }
-
-  /* reveal on scroll */
-  .reveal{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.show{ opacity:1; transform:translateY(0); }
-
-  @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
-    html{ scroll-behavior:auto; }
-  }
-
-  :focus-visible{
-    outline:2px solid var(--amber);
-    outline-offset:3px;
-  }
-</style>
-</head>
-<body>
-
-<div class="topbar">
-  <span><b>MANIFEST No.</b> RP-2026-LTL</span>
-  <span>ORIGIN: Caloocan, Philippines</span>
-  <span>STATUS: <b>AVAILABLE — IMMEDIATE START</b></span>
-</div>
-
-<header class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">Logistics Coordinator</p>
-    <h1>Ryan<br>Pangilinan</h1>
-    <p class="role">Dispatch &amp; Coordination <em>·</em> LTL &amp; Truckload <em>·</em> Remote-Ready</p>
-
-    <div class="manifest">
-      <div class="field">
-        <label>Location</label>
-        <span>Caloocan, PH</span>
-      </div>
-      <div class="field">
-        <label>Phone</label>
-        <a href="tel:09462422255">0946 242 2255</a>
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
-      </div>
-      <div class="field">
-        <label>Background</label>
-        <span>Diesel Mechanic &amp; IT</span>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section class="reveal">
-  <div class="section-head">
-    <span class="tag">01 / SUMMARY</span>
-    <div class="rule"></div>
-  </div>
-  <h2 style="margin-bottom:18px;">On the record</h2>
-  <p class="summary-text">Dedicated and detail-oriented Logistics Coordinator with hands-on training in coordination and dispatching. Background as a truck mechanic, backed by a diploma in Information Technology — a combination that pairs technical know-how with strong administrative and computer skills. Fast learner, highly organized, and committed to delivering reliable results in a remote work environment. Available to start immediately.</p>
-</section>
-
-<section class="reveal">
-  <div class="section-head">
-    <span class="tag">02 / SERVICES</span>
-    <div class="rule"></div>
-  </div>
-  <h2 style="margin-bottom:28px;">What I handle as your VA</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="num">A</span>
-      <h3>Email Management</h3>
-      <p>Keeping inboxes organized, responsive, and nothing falling through the cracks.</p>
-    </div>
-    <div class="service-card">
-      <span class="num">B</span>
-      <h3>Quoting &amp; Booking</h3>
-      <p>Turning requests into confirmed shipments, fast and accurately.</p>
-    </div>
-    <div class="service-card">
-      <span class="num">C</span>
-      <h3>Shipment Tracking</h3>
-      <p>Monitoring freight from pickup to delivery, flagging issues early.</p>
-    </div>
-    <div class="service-card">
-      <span class="num">D</span>
-      <h3>POD Verification</h3>
-      <p>Checking proof of delivery once a shipment lands, every time.</p>
-    </div>
-  </div>
-</section>
-
-<section class="reveal">
-  <div class="section-head">
-    <span class="tag">03 / ROUTE</span>
-    <div class="rule"></div>
-  </div>
-  <h2 style="margin-bottom:34px;">The road so far</h2>
-  <div class="route-wrap">
-    <div class="route-line"></div>
-
-    <div class="stop">
-      <span class="leg">2019 — 2026 · 7 YRS</span>
-      <h3>Small Business Owner</h3>
-      <p class="role-line">Mini Grocery / Residential Apartment — full operational and administrative ownership.</p>
-    </div>
-
-    <div class="stop">
-      <span class="leg">2016 — 2018 · 2 YRS</span>
-      <h3>YANMAR (KEP)</h3>
-      <p class="role-line">Diesel Mechanic / Heavy Equipment Mechanic / Logistics Coordinator</p>
-    </div>
-
-    <div class="stop">
-      <span class="leg">2006 — 2015 · 9 YRS</span>
-      <h3>Freelance IT</h3>
-      <p class="role-line">Independent technical support and computer services.</p>
-    </div>
-  </div>
-</section>
-
-<section class="reveal">
-  <div class="two-col">
-    <div>
-      <div class="section-head">
-        <span class="tag">04 / STRENGTHS</span>
-        <div class="rule"></div>
-      </div>
-      <h2 style="margin-bottom:20px;">Built for the floor</h2>
-      <ul class="strength-list">
-        <li><span class="mark">→</span> High degree of monitoring and follow-through</li>
-        <li><span class="mark">→</span> Strong critical thinking and problem-solving</li>
-        <li><span class="mark">→</span> Deep background in LTL and Truckload freight</li>
-      </ul>
-    </div>
-    <div>
-      <div class="section-head">
-        <span class="tag">05 / TRAINING</span>
-        <div class="rule"></div>
-      </div>
-      <h2 style="margin-bottom:20px;">Education</h2>
-      <div class="edu-item">
-        <span class="yr">2015</span>
-        <h4>Diesel Mechanic</h4>
-        <span class="school">Tech-Voc TESDA</span>
-      </div>
-      <div class="edu-item">
-        <span class="yr">2002 — 2004</span>
-        <h4>Computer &amp; Electronics</h4>
-        <span class="school">S.T.I College</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="contact-block reveal">
-  <p class="eyebrow">Let's move freight</p>
-  <h2>Ready when you are.</h2>
-  <div class="contact-links">
-    <a href="mailto:ryanuban0000@gmail.com">ryanuban0000@gmail.com</a>
-    <a href="tel:09462422255">0946 242 2255</a>
-  </div>
-</div>
-
-<footer>RYAN PANGILINAN — LOGISTICS COORDINATOR — CALOOCAN, PHILIPPINES</footer>
-
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('show'); }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r=>io.observe(r));
-</script>
 
 </body>
 </html>
